@@ -18,18 +18,18 @@ val DarkColorScheme = darkColorScheme(
     tertiary = DarkOrange,
     background = DarkGray,
     surface = Color(0xFF3F3E3E),
-    onPrimary = Color.Black,
+    onSurface = Color(0xFFC7C7C7),
+    onPrimary = Color.White,
     onSecondary = Color.Black,
     onBackground = Color.White,
-    onSurface = Color.White
 )
 
 val LightColorScheme = lightColorScheme(
     primary = LightOrange,
     secondary = LightAccent,
     tertiary = LightOrange,
-    background = LightGray,
-    surface = LightGray,
+    background = Color(0xFFC7C7C7),
+    surface = Color(0xFFE0E0E0),
     onPrimary = Color.Black,
     onSecondary = Color.Black,
     onBackground = Color.Black,

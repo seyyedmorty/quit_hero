@@ -1,6 +1,5 @@
 package com.example.quithero.navigation
 
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -12,11 +11,11 @@ import com.example.quithero.ui.screens.ProfileScreen
 import com.example.quithero.ui.screens.SettingScreen
 
 @Composable
-fun AppNavGraph(navController: NavHostController) {
+fun AppNavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
     NavHost(
         navController = navController,
         startDestination = Routes.SETTING,
-        modifier = Modifier.navigationBarsPadding()
+        modifier = modifier
     ) {
         composable(Routes.HOME) { HomeScreen(navController) }
         composable(Routes.SETTING) { SettingScreen(navController) }
