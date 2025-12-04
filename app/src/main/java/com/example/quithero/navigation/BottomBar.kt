@@ -36,6 +36,7 @@ fun BottomBar(nav: NavController) {
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.surface
     ) {
+
         listOfItems.forEach { item ->
 
             val selected = currentRoute == item.route
