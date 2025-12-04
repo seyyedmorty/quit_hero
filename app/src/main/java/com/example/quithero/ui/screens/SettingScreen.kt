@@ -2,6 +2,7 @@ package com.example.quithero.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -14,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.quithero.ui.settings.DarkModeButton
+import com.example.quithero.ui.settings.StartSoundButton
 import com.example.quithero.viewmodel.ThemeViewModel
 
 
@@ -35,6 +37,10 @@ fun SettingScreen(nav: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             DarkModeButton(isDark, themeViewModel)
+
+            Spacer(modifier = Modifier.padding(7.dp))
+
+            StartSoundButton()
         }
     }
 }

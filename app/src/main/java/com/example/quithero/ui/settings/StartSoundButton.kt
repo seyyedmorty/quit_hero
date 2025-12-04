@@ -1,5 +1,6 @@
 package com.example.quithero.ui.settings
 
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -13,21 +14,42 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.VolumeOff
+import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.Lightbulb
+import androidx.compose.material.icons.filled.ToggleOff
+import androidx.compose.material.icons.filled.ToggleOn
+import androidx.compose.material.icons.filled.VolumeOff
+import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.quithero.viewmodel.StartSoundViewModel
 import com.example.quithero.viewmodel.ThemeViewModel
 
 @Composable
-fun DarkModeButton(isDark: Boolean,themeViewModel: ThemeViewModel) {
+fun StartSoundButton() {
+
+    val ctx = LocalContext.current
+    val startSoundVM: StartSoundViewModel = viewModel()
+    val isEnabled by startSoundVM.isStartSoundEnabled.collectAsState()
+
+
     Card(
         modifier = Modifier
             .padding(8.dp)
@@ -53,7 +75,13 @@ fun DarkModeButton(isDark: Boolean,themeViewModel: ThemeViewModel) {
                     )
                     .height(40.dp)
                     .width(90.dp)
-                    .clickable { themeViewModel.toggleTheme() },
+                    .clickable {
+                        startSoundVM.setStartSound(!isEnabled)
+                        Toast.makeText(ctx,
+                            if (!isEnabled) "صدای شروع اپلیکیشن فعال شد" else "صدای شروع اپلیکیشن غیرفعال شد",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    },
 
 
                 contentAlignment = Alignment.CenterStart
@@ -67,22 +95,21 @@ fun DarkModeButton(isDark: Boolean,themeViewModel: ThemeViewModel) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
-                        Icons.Filled.WbSunny,
-                        contentDescription = "Light Mode",
-                        tint = if (!isDark) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+                        Icons.AutoMirrored.Filled.VolumeUp,
+                        contentDescription = "Sound On",
+                        tint = if (isEnabled) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
                     )
                     Icon(
-                        Icons.Filled.DarkMode,
-                        contentDescription = "Dark Mode",
-                        tint = if (isDark) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+                        Icons.AutoMirrored.Filled.VolumeOff,
+                        contentDescription = "Sound Off",
+                        tint = if (!isEnabled) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
                     )
                 }
             }
 
-//                    Spacer(modifier = Modifier.width(16.dp))
 
             Text(
-                text = "رنگ پوسته",
+                text = "صدای شروع اپلیکیشن",
                 modifier = Modifier.padding(end = 16.dp),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurface,

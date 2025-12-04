@@ -2,3 +2,4 @@
 <resources>
     <style name="Theme.QuitHero" parent="android:Theme.Material.Light.NoActionBar" />
 </resources>
+
