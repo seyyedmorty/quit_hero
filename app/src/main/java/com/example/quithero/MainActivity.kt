@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
+import com.example.quithero.data.AppDataBase
 import com.example.quithero.navigation.AppNavGraph
 import com.example.quithero.navigation.BottomBar
 import com.example.quithero.navigation.FAButton
@@ -30,36 +31,37 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+
             val themeViewModel: ThemeViewModel = viewModel()
             val isDark by themeViewModel.isDarkMode.collectAsState()
 
             val navController = rememberNavController()
 
-            Box(
-                modifier = Modifier.fillMaxSize()
-            ) {
-                QuitHeroTheme(darkTheme = isDark) {   // تم اپ
-                    Scaffold(
-                        bottomBar = {
-                            BottomBar(navController) // بعداً تعریفش می‌کنیم
-                        },
-                        topBar = {
-                            TopBar(navController)
-                        }
-                    ) { paddingValues ->
 
-                        AppNavGraph(
-                            navController = navController,
-                            modifier = Modifier.padding(paddingValues)
+            QuitHeroTheme(darkTheme = isDark) {   // تم اپ
+                Scaffold(
+                    bottomBar = {
+                        BottomBar(navController) // بعداً تعریفش می‌کنیم
+                    },
+                    topBar = {
+                        TopBar(navController)
+                    },
+                    floatingActionButton = {
+                        FAButton(
+                            modifier = Modifier
+                                .offset(y = 30.dp)
                         )
-                    }
-                    FAButton(
-                        modifier = Modifier
-                            .align(Alignment.BottomCenter)   // اینجا OK
-                            .offset(y = (-95).dp),
+                    },
+                    floatingActionButtonPosition = FabPosition.Center
+                ) { paddingValues ->
+
+                    AppNavGraph(
+                        navController = navController,
+                        modifier = Modifier.padding(paddingValues)
                     )
                 }
             }
+
         }
     }
 }

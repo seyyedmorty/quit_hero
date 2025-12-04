@@ -14,7 +14,7 @@ import com.example.quithero.ui.screens.SettingScreen
 fun AppNavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
     NavHost(
         navController = navController,
-        startDestination = Routes.SETTING,
+        startDestination = Routes.HOME,
         modifier = modifier
     ) {
         composable(Routes.HOME) { HomeScreen(navController) }

@@ -53,38 +53,39 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.quithero.viewmodel.SmokeViewModel
 
 import kotlinx.coroutines.delay
 
 @Composable
 fun FAButton(modifier: Modifier = Modifier) {
-    // 1. حالت اصلی باز/بسته شدن
+
+    val smokeViewModel: SmokeViewModel = viewModel()
+    val smokeInfo by smokeViewModel.smokeInfo
+    val daysWithoutSmoking by smokeViewModel.daysWithoutSmoking
+
+
     var expand by remember { mutableStateOf(false) }
 
-    // 2. یک لیست حالت برای هر اکشن (برای stagger)
     val itemVisible = remember { mutableStateListOf(false, false) }
 
-    // 3. هنگام تغییر expand، با تاخیر کوتاه هر آیتم را نشان/مخفی کن
     LaunchedEffect(key1 = expand) {
         if (expand) {
-            // باز شدن: نشان دادن به ترتیب با تاخیر کوچک
             itemVisible[0] = true
             delay(60) // stagger
             itemVisible[1] = true
         } else {
-            // بستن: مخفی کردن به ترتیب معکوس برای حس خوب
             itemVisible[1] = false
             delay(40)
             itemVisible[0] = false
         }
     }
 
-    // 4. ساختار: Box که محتوا را در BottomCenter قرار می‌دهد.
     Box(
-        modifier = modifier.wrapContentSize(), // اندازه را به محتوا محدود کن
+        modifier = modifier.wrapContentSize(),
         contentAlignment = Alignment.BottomCenter
     ) {
-        // ---- دکمه‌های فرعی (نمایش بالا سر FAB) ----
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -92,7 +93,6 @@ fun FAButton(modifier: Modifier = Modifier) {
 
                 .offset(y = (-72).dp)
         ) {
-            // Action 1
             AnimatedVisibility(
                 visible = itemVisible[0],
                 enter = fadeIn() + slideInVertically { it / 2 },
@@ -100,6 +100,7 @@ fun FAButton(modifier: Modifier = Modifier) {
             ) {
                 SmallFloatingActionButton(
                     onClick = {
+                        smokeViewModel.addSmokeInfo(System.currentTimeMillis())
                         expand = false
                     },
                   containerColor = MaterialTheme.colorScheme.primary
@@ -113,7 +114,6 @@ fun FAButton(modifier: Modifier = Modifier) {
                 }
             }
 
-            // Action 2
             AnimatedVisibility(
                 visible = itemVisible[1],
                 enter = fadeIn() + slideInVertically { it / 2 },
@@ -135,7 +135,6 @@ fun FAButton(modifier: Modifier = Modifier) {
             }
         }
 
-        // ---- دکمهٔ اصلی (FAB) ----
         FloatingActionButton(
             onClick = { expand = !expand },
             containerColor = MaterialTheme.colorScheme.primary,
