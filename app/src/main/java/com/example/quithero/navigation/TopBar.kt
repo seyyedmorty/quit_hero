@@ -22,6 +22,7 @@ fun TopBar(nav: NavController) {
         Routes.MOTIVATION -> "بر فراز قله‌ها"
         Routes.PROFILE -> "پروفایل"
         Routes.SETTING -> "تنظیمات"
+        Routes.BENEFITS -> "فواید ترک سیگار"
         else -> "QuitHero"
     }
 

@@ -5,4 +5,6 @@ object Routes {
     const val SETTING = "setting"
     const val PROFILE = "profile"
     const val MOTIVATION = "motivation"
+
+    const val BENEFITS = "benefits/{currentDay}"
 }

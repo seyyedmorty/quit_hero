@@ -1,7 +1,10 @@
 package com.example.quithero.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -35,6 +38,7 @@ fun HomeScreen(nav: NavController) {
 
     val smokeViewModel: SmokeViewModel = viewModel()
     val smokeInfo by smokeViewModel.smokeInfo
+    val smokeRecordInfo by smokeViewModel.smokeRecordInfo
     val lastSmokeTime = smokeInfo?.lastSmokeTime
     val timeSince = remember { mutableStateOf("") }
 
@@ -68,7 +72,8 @@ fun HomeScreen(nav: NavController) {
                 )
             ) {
                 Column(
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier
+                        .padding(16.dp)
                         .fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -106,6 +111,38 @@ fun HomeScreen(nav: NavController) {
                         )
                     }
                 }
+            }
+
+            Spacer(modifier = Modifier.padding(8.dp))
+
+            Card(
+                shape = RoundedCornerShape(16.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(16.dp)),
+                colors = androidx.compose.material3.CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surface
+                )
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                        .clickable(
+                            onClick = {
+                                nav.navigate("benefits/${smokeRecordInfo?.days}")
+                            }
+                        ),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text(
+                        text = "فواید ترک سیگار(الان کجام؟)",
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.primary,
+                        textAlign = TextAlign.Center
+                    )
+                }
+
             }
         }
     }
