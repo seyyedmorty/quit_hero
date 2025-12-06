@@ -5,9 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [SmokeInfo::class], version = 1)
+@Database(entities = [SmokeInfo::class, Records::class], version = 1)
 abstract class AppDataBase: RoomDatabase() {
     abstract fun smokeInfoDao(): SmokeInfoDao
+    abstract fun recordsDao(): RecordsDao
 
     companion object {
         @Volatile

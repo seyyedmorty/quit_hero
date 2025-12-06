@@ -4,7 +4,9 @@ import android.app.Application
 import com.example.quithero.data.AppDataBase
 
 class QuitHeroApp : Application() {
+
     val database by lazy {
+        deleteDatabase("quit_hero_db")
         AppDataBase.getDatabase(this)
     }
 }

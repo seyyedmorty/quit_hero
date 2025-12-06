@@ -54,6 +54,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.quithero.ui.dialogs.ReasonDialog
 import com.example.quithero.viewmodel.SmokeViewModel
 
 import kotlinx.coroutines.delay
@@ -64,9 +65,11 @@ fun FAButton(modifier: Modifier = Modifier) {
     val smokeViewModel: SmokeViewModel = viewModel()
     val smokeInfo by smokeViewModel.smokeInfo
     val daysWithoutSmoking by smokeViewModel.daysWithoutSmoking
+    var showDialog by remember { mutableStateOf(false) }
 
 
     var expand by remember { mutableStateOf(false) }
+    var reason by remember { mutableStateOf<String>("") }
 
     val itemVisible = remember { mutableStateListOf(false, false) }
 
@@ -86,6 +89,17 @@ fun FAButton(modifier: Modifier = Modifier) {
         modifier = modifier.wrapContentSize(),
         contentAlignment = Alignment.BottomCenter
     ) {
+        if (showDialog) {
+            ReasonDialog(
+                onDismiss = { showDialog = false },
+                onConfirm = { input ->
+                    reason = input
+                    smokeViewModel.addSmokeInfo(System.currentTimeMillis(), reason)
+                    smokeViewModel.addRecord(daysWithoutSmoking, reason)
+                    showDialog = false
+                }
+            )
+        }
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -100,7 +114,7 @@ fun FAButton(modifier: Modifier = Modifier) {
             ) {
                 SmallFloatingActionButton(
                     onClick = {
-                        smokeViewModel.addSmokeInfo(System.currentTimeMillis())
+                        showDialog = true
                         expand = false
                     },
                   containerColor = MaterialTheme.colorScheme.primary

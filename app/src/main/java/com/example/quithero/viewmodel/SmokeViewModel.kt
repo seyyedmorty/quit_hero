@@ -6,13 +6,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.quithero.QuitHeroApp
-import com.example.quithero.data.AppDataBase
+import com.example.quithero.data.Records
 import com.example.quithero.data.SmokeInfo
 import kotlinx.coroutines.launch
 
 class SmokeViewModel(application: Application): AndroidViewModel(application) {
 
-    private val dao = (application as QuitHeroApp).database.smokeInfoDao()
+    private val smokeDao = (application as QuitHeroApp).database.smokeInfoDao()
+    private val recordsDao = (application as QuitHeroApp).database.recordsDao()
+
+    private val _smokeRecordInfo = mutableStateOf<Records?>(null)
+    val smokeRecordInfo: State<Records?> = _smokeRecordInfo
 
     private val _smokeInfo = mutableStateOf<SmokeInfo?>(null)
     val smokeInfo: State<SmokeInfo?> = _smokeInfo
@@ -28,19 +32,38 @@ class SmokeViewModel(application: Application): AndroidViewModel(application) {
 
     fun loadSmokeInfo(){
         viewModelScope.launch {
-            dao.getLastSmoke().collect { info ->
+            smokeDao.getLastSmoke().collect { info ->
                 _smokeInfo.value = info
                 _daysWithoutSmoking.value = info?.let { calculateDays(it.lastSmokeTime) } ?: 0
             }
         }
+        viewModelScope.launch {
+            val bestRecord = recordsDao.getBestRecord()
+            _smokeRecordInfo.value = bestRecord
+        }
     }
 
-    fun addSmokeInfo(date: Long) {
+
+    fun addSmokeInfo(date: Long, reason: String) {
         viewModelScope.launch {
-            val newInfo = SmokeInfo(id = 0, lastSmokeTime = date)
-            dao.insertSmokeInfo(newInfo)
+            val newInfo = SmokeInfo(id = 0, lastSmokeTime = date, lastReason = reason)
+            smokeDao.insertSmokeInfo(newInfo)
             _smokeInfo.value = newInfo
             _daysWithoutSmoking.value = calculateDays(date)
+        }
+    }
+
+    fun addRecord(days: Int, reason: String) {
+        viewModelScope.launch {
+            val newRecord = Records(days = days, reason = reason)
+            recordsDao.insertRecord(newRecord)
+            getBestRecord()
+        }
+    }
+
+    fun getBestRecord(){
+        viewModelScope.launch {
+            _smokeRecordInfo.value = recordsDao.getBestRecord()
         }
     }
 

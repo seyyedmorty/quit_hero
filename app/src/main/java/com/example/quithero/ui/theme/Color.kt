@@ -9,5 +9,5 @@ val DarkAccent = Color(0xFFFFB74D)
 
 // Light Mode
 val LightGray = Color(0xFFBEBEBE)
-val LightOrange = Color(0xFFFFA726)
+val LightOrange = Color(0xFFEA8810)
 val LightAccent = Color(0xFFFFCC80)
