@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -31,6 +32,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.quithero.ui.assets.TopAppBanner
 import com.example.quithero.viewmodel.SmokeViewModel
 
 @Composable
@@ -57,11 +59,13 @@ fun HomeScreen(nav: NavController) {
     Scaffold { paddingValues ->
         Column(
             modifier = Modifier
-                .padding(paddingValues)
                 .padding(16.dp)
+                .padding(top = 22.dp)
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            TopAppBanner()
+
             Card(
                 shape = RoundedCornerShape(16.dp),
                 modifier = Modifier

@@ -17,8 +17,8 @@ fun ProfileScreen(nav: NavController) {
     Scaffold() { pad ->
         Column(
             modifier = Modifier
-                .padding(pad)
                 .padding(16.dp)
+                .padding(top = 22.dp)
                 .background(MaterialTheme.colorScheme.background),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
