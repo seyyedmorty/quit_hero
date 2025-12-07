@@ -10,6 +10,7 @@ import com.example.quithero.ui.screens.MotivationScreen
 import com.example.quithero.ui.screens.ProfileScreen
 import com.example.quithero.ui.screens.QuitBenefitsScreen
 import com.example.quithero.ui.screens.SettingScreen
+import com.example.quithero.ui.screens.TemptationScreen
 
 @Composable
 fun AppNavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
@@ -26,5 +27,6 @@ fun AppNavGraph(navController: NavHostController, modifier: Modifier = Modifier)
             val currentDay = backStackEntry.arguments?.getString("currentDay")?.toIntOrNull() ?: 0
             QuitBenefitsScreen(currentDay = currentDay)
         }
+        composable(Routes.TEMPTATION) { TemptationScreen() }
     }
 }

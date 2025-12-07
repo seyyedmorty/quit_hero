@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("org.jetbrains.kotlin.kapt")
+    kotlin("plugin.serialization") version "2.0.21"
 }
 
 android {
@@ -115,6 +116,15 @@ dependencies {
     // -----------------------------
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    // -----------------------------
+    // Json Parsing
+    // -----------------------------
+    implementation(libs.converter.gson)
+    implementation(libs.gson)
+    // -----------------------------
+    // Serialization
+    // -----------------------------
+    implementation(libs.kotlinx.serialization.json)
 
 
 }

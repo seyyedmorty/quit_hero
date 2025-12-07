@@ -1,5 +1,8 @@
 package com.example.quithero.navigation
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -23,6 +26,7 @@ fun TopBar(nav: NavController) {
         Routes.PROFILE -> "پروفایل"
         Routes.SETTING -> "تنظیمات"
         Routes.BENEFITS -> "فواید ترک سیگار"
+        Routes.TEMPTATION -> "تکنیک‌های مقابله"
         else -> "QuitHero"
     }
 
@@ -34,7 +38,19 @@ fun TopBar(nav: NavController) {
                 color = MaterialTheme.colorScheme.onPrimary,
             )
         },
-        navigationIcon = {},
+        navigationIcon = {
+            if (currentRoute == Routes.TEMPTATION || currentRoute == Routes.BENEFITS) {
+                androidx.compose.material3.IconButton(
+                    onClick = { nav.popBackStack() } // برگشت به صفحه قبل
+                ) {
+                    androidx.compose.material3.Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "بازگشت",
+                        tint = MaterialTheme.colorScheme.onPrimary
+                    )
+                }
+            }
+        },
         actions = {},
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.primary

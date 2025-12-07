@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.quithero.ui.assets.TopAppBanner
+import com.example.quithero.ui.buttons.TemptationButton
 import com.example.quithero.viewmodel.SmokeViewModel
 
 @Composable
@@ -146,8 +147,10 @@ fun HomeScreen(nav: NavController) {
                         textAlign = TextAlign.Center
                     )
                 }
-
             }
+            Spacer(modifier = Modifier.padding(8.dp))
+
+            TemptationButton(nav = nav)
         }
     }
 }
