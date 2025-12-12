@@ -43,6 +43,15 @@ class SmokeViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
+    fun getDaysFromLastSmoke(lastSmokeTime: Long): Int {
+        val now = System.currentTimeMillis()
+        return ((now - lastSmokeTime) / (1000 * 60 * 60 * 24)).toInt()
+    }
+
+    fun updateDays(days: Int) {
+        _daysWithoutSmoking.value = days
+    }
+
 
     fun addSmokeInfo(date: Long, reason: String) {
         viewModelScope.launch {

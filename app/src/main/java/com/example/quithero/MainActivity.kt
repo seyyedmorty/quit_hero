@@ -27,7 +27,9 @@ import com.example.quithero.navigation.AppNavGraph
 import com.example.quithero.navigation.BottomBar
 import com.example.quithero.navigation.FAButton
 import com.example.quithero.navigation.TopBar
+import com.example.quithero.ui.screens.OnboardingScreen
 import com.example.quithero.ui.theme.QuitHeroTheme
+import com.example.quithero.viewmodel.OnBoardingViewModel
 import com.example.quithero.viewmodel.StartSoundViewModel
 import com.example.quithero.viewmodel.ThemeViewModel
 import kotlinx.coroutines.delay
@@ -38,45 +40,51 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val ctx = LocalContext.current
-            val startSoundVM: StartSoundViewModel = viewModel()
-            val isEnabled by startSoundVM.isStartSoundEnabled.collectAsState()
+            val onboardingVM: OnBoardingViewModel = viewModel()
+            val isOnboardingVisible by onboardingVM.isOnboardingVisible.collectAsState()
+            var showMainScreen by remember { mutableStateOf(false) }
 
-            if (isEnabled) {
-                LaunchedEffect(Unit) {
-                    val mediaPlayer = MediaPlayer.create(ctx, R.raw.intro_sound)
-                    mediaPlayer.start()
-                    mediaPlayer.setOnCompletionListener {
-                        mediaPlayer.release()
+
+            if (isOnboardingVisible && !showMainScreen) {
+                QuitHeroTheme() {
+                    OnboardingScreen(viewModel = onboardingVM) {
+                        // وقتی onboarding تمام شد
+                        showMainScreen = true
+                    }
+                }
+            } else {
+                // UI اصلی اپ: Scaffold + NavGraph + BottomBar + TopBar
+                val ctx = LocalContext.current
+                val startSoundVM: StartSoundViewModel = viewModel()
+                val isEnabled by startSoundVM.isStartSoundEnabled.collectAsState()
+
+                if (isEnabled) {
+                    LaunchedEffect(Unit) {
+                        val mediaPlayer = MediaPlayer.create(ctx, R.raw.intro_sound)
+                        mediaPlayer.start()
+                        mediaPlayer.setOnCompletionListener { mediaPlayer.release() }
+                    }
+                }
+
+                val themeViewModel: ThemeViewModel = viewModel()
+                val isDark by themeViewModel.isDarkMode.collectAsState()
+                val navController = rememberNavController()
+
+                QuitHeroTheme(darkTheme = isDark) {
+                    Scaffold(
+                        bottomBar = { BottomBar(navController) },
+                        topBar = { TopBar(navController) },
+                        floatingActionButton = { FAButton(modifier = Modifier.offset(y = 30.dp)) },
+                        floatingActionButtonPosition = FabPosition.Center
+                    ) { paddingValues ->
+                        AppNavGraph(
+                            navController = navController,
+                            modifier = Modifier.padding(paddingValues)
+                        )
                     }
                 }
             }
 
-
-
-            val themeViewModel: ThemeViewModel = viewModel()
-            val isDark by themeViewModel.isDarkMode.collectAsState()
-
-            val navController = rememberNavController()
-
-
-            QuitHeroTheme(darkTheme = isDark) {
-                Scaffold(
-                    bottomBar = {
-                        BottomBar(navController)
-                    }, topBar = {
-                        TopBar(navController)
-                    }, floatingActionButton = {
-                        FAButton(
-                            modifier = Modifier.offset(y = 30.dp)
-                        )
-                    }, floatingActionButtonPosition = FabPosition.Center
-                ) { paddingValues ->
-                    AppNavGraph(
-                        navController = navController, modifier = Modifier.padding(paddingValues)
-                    )
-                }
-            }
 
         }
     }

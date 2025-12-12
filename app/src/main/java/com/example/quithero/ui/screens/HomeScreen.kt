@@ -44,12 +44,13 @@ fun HomeScreen(nav: NavController) {
     val smokeRecordInfo by smokeViewModel.smokeRecordInfo
     val lastSmokeTime = smokeInfo?.lastSmokeTime
     val timeSince = remember { mutableStateOf("") }
+    val days by smokeViewModel.daysWithoutSmoking
 
-    // به‌روزرسانی زمان گذشته هر ثانیه
     LaunchedEffect(lastSmokeTime) {
         while (true) {
             lastSmokeTime?.let {
                 timeSince.value = smokeViewModel.getTimeSinceLastSmoke(it)
+                smokeViewModel.updateDays(smokeViewModel.getDaysFromLastSmoke(it))
             } ?: run {
                 timeSince.value = "هیچ سیگاری ثبت نشده"
             }
@@ -135,7 +136,7 @@ fun HomeScreen(nav: NavController) {
                         .padding(16.dp)
                         .clickable(
                             onClick = {
-                                nav.navigate("benefits/${smokeRecordInfo?.days}")
+                                nav.navigate("benefits/$days")
                             }
                         ),
                     contentAlignment = Alignment.Center,
