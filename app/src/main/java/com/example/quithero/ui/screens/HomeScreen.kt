@@ -1,5 +1,6 @@
 package com.example.quithero.ui.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -9,10 +10,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.Divider
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -22,6 +27,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,6 +43,7 @@ import com.example.quithero.ui.assets.TopAppBanner
 import com.example.quithero.ui.buttons.TemptationButton
 import com.example.quithero.viewmodel.SmokeViewModel
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(nav: NavController) {
 
@@ -53,12 +61,13 @@ fun HomeScreen(nav: NavController) {
                 smokeViewModel.updateDays(smokeViewModel.getDaysFromLastSmoke(it))
             } ?: run {
                 timeSince.value = "هیچ سیگاری ثبت نشده"
+                smokeViewModel.updateDays(0)
             }
             kotlinx.coroutines.delay(1000)
         }
     }
 
-    Scaffold { paddingValues ->
+    Scaffold {  paddingValues ->
         Column(
             modifier = Modifier
                 .padding(16.dp)
@@ -91,7 +100,7 @@ fun HomeScreen(nav: NavController) {
                             textAlign = TextAlign.Center
                         )
                         Text(
-                            text = timeSince.value,
+                            text = timeSince.value + " روز $days",
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.primary,
                             textAlign = TextAlign.Center

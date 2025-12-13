@@ -44,7 +44,10 @@ fun BottomBar(nav: NavController) {
             NavigationBarItem(
                 selected = selected,
                 onClick = {
-                    if (currentRoute != item.route) {
+                    if (item.route == Routes.HOME){
+                        nav.popBackStack(Routes.HOME,false)
+                    }
+                    else {
                         nav.navigate(item.route) {
                             popUpTo(nav.graph.findStartDestination().id) {
                                 saveState = true

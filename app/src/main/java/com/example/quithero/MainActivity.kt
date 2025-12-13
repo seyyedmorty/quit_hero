@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
             var showMainScreen by remember { mutableStateOf(false) }
 
 
-            if (isOnboardingVisible && !showMainScreen) {
+            if (false /*isOnboardingVisible && !showMainScreen*/) {
                 QuitHeroTheme() {
                     OnboardingScreen(viewModel = onboardingVM) {
                         // وقتی onboarding تمام شد

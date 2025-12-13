@@ -440,7 +440,6 @@ private fun StepSummary(
         )
         Spacer(Modifier.height(24.dp))
 
-        // Card اطلاعاتی با ظاهری خاص
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(20.dp), // گوشه‌های گردتر

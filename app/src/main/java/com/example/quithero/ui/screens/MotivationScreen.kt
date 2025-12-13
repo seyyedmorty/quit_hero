@@ -1,5 +1,6 @@
 package com.example.quithero.ui.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,13 +25,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.quithero.viewmodel.SmokeViewModel
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun MotivationScreen(nav: NavController) {
 
     val smokeViewModel: SmokeViewModel = viewModel()
     val smokeRecordInfo by smokeViewModel.smokeRecordInfo
 
-    Scaffold() { pad ->
+    Scaffold() {  pad ->
         Column(
             modifier = Modifier
                 .padding(16.dp)
