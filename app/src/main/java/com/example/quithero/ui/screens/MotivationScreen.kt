@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Badge
 import androidx.compose.material3.Card
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -23,6 +24,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.quithero.ui.assets.BadgeIcon
 import com.example.quithero.viewmodel.SmokeViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -32,11 +34,11 @@ fun MotivationScreen(nav: NavController) {
     val smokeViewModel: SmokeViewModel = viewModel()
     val smokeRecordInfo by smokeViewModel.smokeRecordInfo
 
-    Scaffold() {  pad ->
+    Scaffold() { pad ->
         Column(
             modifier = Modifier
-                .padding(16.dp)
-                .padding(top = 22.dp)
+                .padding(8.dp)
+                .padding(top = 8.dp)
                 .background(MaterialTheme.colorScheme.background),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -50,7 +52,8 @@ fun MotivationScreen(nav: NavController) {
                 )
             ) {
                 Column(
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier
+                        .padding(16.dp)
                         .fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -89,7 +92,7 @@ fun MotivationScreen(nav: NavController) {
                     }
                 }
             }
-
+            BadgeIcon(smokeRecordInfo?.days ?: 0)
         }
     }
 }

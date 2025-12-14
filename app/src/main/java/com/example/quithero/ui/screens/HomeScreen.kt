@@ -100,7 +100,7 @@ fun HomeScreen(nav: NavController) {
                             textAlign = TextAlign.Center
                         )
                         Text(
-                            text = timeSince.value + " روز $days",
+                            text = timeSince.value,
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.primary,
                             textAlign = TextAlign.Center

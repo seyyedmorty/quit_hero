@@ -10,7 +10,7 @@ import com.example.quithero.data.Records
 import com.example.quithero.data.SmokeInfo
 import kotlinx.coroutines.launch
 
-class SmokeViewModel(application: Application): AndroidViewModel(application) {
+class SmokeViewModel(application: Application) : AndroidViewModel(application) {
 
     private val smokeDao = (application as QuitHeroApp).database.smokeInfoDao()
     private val recordsDao = (application as QuitHeroApp).database.recordsDao()
@@ -30,7 +30,7 @@ class SmokeViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    fun loadSmokeInfo(){
+    fun loadSmokeInfo() {
         viewModelScope.launch {
             smokeDao.getLastSmoke().collect { info ->
                 _smokeInfo.value = info
@@ -50,6 +50,14 @@ class SmokeViewModel(application: Application): AndroidViewModel(application) {
 
     fun updateDays(days: Int) {
         _daysWithoutSmoking.value = days
+
+        val bestRecord = _smokeRecordInfo.value
+        if (bestRecord == null || days > bestRecord.days) {
+            _smokeRecordInfo.value = Records(
+                days = days,
+                reason = "تو میتونی"
+            )
+        }
     }
 
 
@@ -64,13 +72,19 @@ class SmokeViewModel(application: Application): AndroidViewModel(application) {
 
     fun addRecord(days: Int, reason: String) {
         viewModelScope.launch {
+            val bestRecord = recordsDao.getBestRecord()
             val newRecord = Records(days = days, reason = reason)
             recordsDao.insertRecord(newRecord)
-            getBestRecord()
+            if (bestRecord == null || days > bestRecord.days) {
+                _smokeRecordInfo.value = newRecord
+            } else {
+                _smokeRecordInfo.value = bestRecord
+            }
         }
     }
 
-    fun getBestRecord(){
+
+    fun getBestRecord() {
         viewModelScope.launch {
             _smokeRecordInfo.value = recordsDao.getBestRecord()
         }
