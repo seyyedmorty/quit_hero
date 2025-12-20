@@ -84,15 +84,6 @@ fun HomeScreen(nav: NavController) {
         ) {
             TopAppBanner()
 
-            Button(onClick = {
-
-                val hundredDaysAgo = System.currentTimeMillis() - 100L * 24 * 60 * 60 * 1000
-                smokeViewModel.addSmokeInfo(date = hundredDaysAgo, reason = "تست رکورد")
-            }) {
-                Text("اضافه کردن SmokeInfo تستی")
-            }
-
-
             Card(
                 shape = RoundedCornerShape(16.dp),
                 modifier = Modifier

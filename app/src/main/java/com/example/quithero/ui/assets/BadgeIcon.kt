@@ -58,13 +58,13 @@ fun BadgeIcon(days: Int, onClick: () -> Unit) {
 
 @Composable
 fun BadgeRoadmapList(currentDays: Int) {
-    // اجبار به راست‌چین بودن برای فارسی
+
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(24.dp)
-                .verticalScroll(rememberScrollState())
+                .verticalScroll(rememberScrollState()),
         ) {
             Text(
                 text = "نقشه راه قهرمانی تو",
@@ -73,7 +73,7 @@ fun BadgeRoadmapList(currentDays: Int) {
             )
 
             Box(modifier = Modifier.fillMaxWidth()) {
-                // خط عمودی پس‌زمینه (Timeline)
+
                 VerticalDivider(
                     modifier = Modifier
                         .align(Alignment.CenterStart)

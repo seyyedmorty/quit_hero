@@ -87,7 +87,7 @@ fun MotivationScreen(nav: NavController) {
             }
 
             Text(
-                text = "برای مشاهده مسیر قهرمانی روی نشان کلیک کن",
+                text = "برای مشاهده مسیر رهایی روی نشان کلیک کن",
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.outline
             )
@@ -98,7 +98,8 @@ fun MotivationScreen(nav: NavController) {
             ModalBottomSheet(
                 onDismissRequest = { showSheet = false },
                 sheetState = sheetState,
-                dragHandle = { BottomSheetDefaults.DragHandle() }
+                dragHandle = { BottomSheetDefaults.DragHandle() },
+                containerColor = MaterialTheme.colorScheme.surface
             ) {
                 BadgeRoadmapList(displayedDays)
             }

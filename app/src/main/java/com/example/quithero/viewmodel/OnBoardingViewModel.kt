@@ -28,7 +28,7 @@ class OnBoardingViewModel(application: Application) : AndroidViewModel(applicati
     private val _quitReason = MutableStateFlow("")
     val quitReason = _quitReason.asStateFlow()
 
-    private val _isOnboardingVisible = MutableStateFlow(true)
+    private val _isOnboardingVisible = MutableStateFlow<Boolean?>(null)
     val isOnboardingVisible = _isOnboardingVisible.asStateFlow()
 
     init {

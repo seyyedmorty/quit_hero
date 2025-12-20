@@ -42,9 +42,11 @@ fun OnboardingScreen(
     val reason by viewModel.quitReason.collectAsState()
     val visible by viewModel.isOnboardingVisible.collectAsState()
 
-    if (!visible) {
-        onFinished()
-        return
+    visible?.let {
+        if (!it) {
+            onFinished()
+            return
+        }
     }
 
     Scaffold(

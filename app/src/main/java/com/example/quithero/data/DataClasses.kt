@@ -22,7 +22,6 @@ data class Records(
 data class Profile(
     @PrimaryKey val id: Int = 0,
     val name: String = "",
-    val age: Int = 0,
     val cigarettesPerDay: Int = 0,
     val pricePerPack: Float = 0f,
     val quitReason: String = "",

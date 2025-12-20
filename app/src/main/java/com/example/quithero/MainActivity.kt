@@ -6,10 +6,13 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.FabPosition
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
@@ -44,11 +47,14 @@ class MainActivity : ComponentActivity() {
             val isOnboardingVisible by onboardingVM.isOnboardingVisible.collectAsState()
             var showMainScreen by remember { mutableStateOf(false) }
 
+            if (isOnboardingVisible == null) {
+                Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background))
+                return@setContent
+            }
 
-            if (false /*isOnboardingVisible && !showMainScreen*/) {
+            if (/*false*/ isOnboardingVisible == true && !showMainScreen) {
                 QuitHeroTheme() {
                     OnboardingScreen(viewModel = onboardingVM) {
-                        // وقتی onboarding تمام شد
                         showMainScreen = true
                     }
                 }
