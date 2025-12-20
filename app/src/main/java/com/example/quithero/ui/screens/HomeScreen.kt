@@ -59,6 +59,13 @@ fun HomeScreen(nav: NavController) {
             lastSmokeTime?.let {
                 timeSince.value = smokeViewModel.getTimeSinceLastSmoke(it)
                 smokeViewModel.updateDays(smokeViewModel.getDaysFromLastSmoke(it))
+                val bestRecord = smokeViewModel.smokeRecordInfo.value
+                if (days > (bestRecord?.days ?: 0)) {
+                    smokeViewModel.addRecord(
+                        days = days,
+                        reason = "تو میتونی!"
+                    )
+                }
             } ?: run {
                 timeSince.value = "هیچ سیگاری ثبت نشده"
                 smokeViewModel.updateDays(0)
@@ -76,6 +83,15 @@ fun HomeScreen(nav: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             TopAppBanner()
+
+            Button(onClick = {
+
+                val hundredDaysAgo = System.currentTimeMillis() - 100L * 24 * 60 * 60 * 1000
+                smokeViewModel.addSmokeInfo(date = hundredDaysAgo, reason = "تست رکورد")
+            }) {
+                Text("اضافه کردن SmokeInfo تستی")
+            }
+
 
             Card(
                 shape = RoundedCornerShape(16.dp),
