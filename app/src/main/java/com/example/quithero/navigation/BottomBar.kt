@@ -49,9 +49,7 @@ fun BottomBar(nav: NavController) {
                     }
                     else {
                         nav.navigate(item.route) {
-                            popUpTo(nav.graph.findStartDestination().id) {
-                                saveState = true
-                            }
+                            popUpTo(item.route) { inclusive = true }
                             launchSingleTop = true
                             restoreState = true
                         }
