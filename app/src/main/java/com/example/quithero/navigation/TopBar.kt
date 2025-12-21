@@ -27,6 +27,7 @@ fun TopBar(nav: NavController) {
         Routes.SETTING -> "تنظیمات"
         Routes.BENEFITS -> "فواید ترک سیگار"
         Routes.TEMPTATION -> "تکنیک‌های مقابله"
+        Routes.EDITPROFILE -> "ویرایش اطلاعات"
         else -> "QuitHero"
     }
 
@@ -39,7 +40,10 @@ fun TopBar(nav: NavController) {
             )
         },
         navigationIcon = {
-            if (currentRoute == Routes.TEMPTATION || currentRoute == Routes.BENEFITS) {
+            if (currentRoute == Routes.TEMPTATION ||
+                currentRoute == Routes.BENEFITS ||
+                currentRoute == Routes.EDITPROFILE
+            ) {
                 androidx.compose.material3.IconButton(
                     onClick = { nav.popBackStack() } // برگشت به صفحه قبل
                 ) {

@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.quithero.ui.screens.EditProfileScreen
 import com.example.quithero.ui.screens.HomeScreen
 import com.example.quithero.ui.screens.MotivationScreen
 import com.example.quithero.ui.screens.ProfileScreen
@@ -28,5 +29,7 @@ fun AppNavGraph(navController: NavHostController, modifier: Modifier = Modifier)
             QuitBenefitsScreen(currentDay = currentDay)
         }
         composable(Routes.TEMPTATION) { TemptationScreen() }
+        composable(Routes.EDITPROFILE) { EditProfileScreen(navController) }
+
     }
 }

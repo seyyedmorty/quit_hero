@@ -44,8 +44,8 @@ fun BottomBar(nav: NavController) {
             NavigationBarItem(
                 selected = selected,
                 onClick = {
-                    if (item.route == Routes.HOME){
-                        nav.popBackStack(Routes.HOME,false)
+                    if (currentRoute?.startsWith(item.route) == true) {
+                        nav.popBackStack(item.route, inclusive = false)
                     }
                     else {
                         nav.navigate(item.route) {

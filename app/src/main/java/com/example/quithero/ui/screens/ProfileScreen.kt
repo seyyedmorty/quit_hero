@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.quithero.navigation.Routes
 import com.example.quithero.viewmodel.ProfileViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -54,7 +55,6 @@ fun ProfileScreen(nav: NavController) {
     val profileVM: ProfileViewModel = viewModel()
     val profile by profileVM.profileState.collectAsState()
 
-    // تا زمانی که داده لود نشده، یک لودینگ نمایش بده
     if (profile == null) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             CircularProgressIndicator()
@@ -92,7 +92,7 @@ fun ProfileScreen(nav: NavController) {
 
                 // ۴. دکمه ویرایش (می‌تونی به صفحه ویرایش ببریش)
                 Button(
-                    onClick = { /* nav.navigate("edit_profile") */ },
+                    onClick = { nav.navigate(Routes.EDITPROFILE) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),
@@ -100,7 +100,7 @@ fun ProfileScreen(nav: NavController) {
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.surface,
                     ),
-                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(0.4f))
+                    border = BorderStroke(2.dp, MaterialTheme.colorScheme.primary.copy(0.4f))
                 ) {
                     Icon(Icons.Default.Edit, contentDescription = null)
                     Spacer(modifier = Modifier.width(8.dp))
@@ -184,8 +184,7 @@ fun HabitSummaryCard(cpd: Int, price: Float) {
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
-        ),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
+        )
     ) {
         Row(
             modifier = Modifier

@@ -22,6 +22,7 @@ val DarkColorScheme = darkColorScheme(
     onPrimary = Color.White,
     onSecondary = Color.Black,
     onBackground = Color.White,
+    outlineVariant = Color.White
 )
 
 val LightColorScheme = lightColorScheme(

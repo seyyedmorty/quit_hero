@@ -241,22 +241,19 @@ private fun MinimalInputField(
     )
 }
 
-// دکمه سفارشی
 @Composable
 private fun CustomNextButton(
     text: String,
     onClick: () -> Unit,
     isEnabled: Boolean,
-    modifier: Modifier = Modifier, // <--- اضافه کردن Modifier
+    modifier: Modifier = Modifier,
     isSecondary: Boolean = false
 ) {
     Button(
         onClick = onClick,
         enabled = isEnabled,
-        // استفاده از Modifier ورودی به جای fillMaxWidth ثابت
         modifier = modifier.height(56.dp),
         shape = RoundedCornerShape(16.dp),
-        // ... (سایر تنظیمات بدون تغییر)
         colors = ButtonDefaults.buttonColors(
             containerColor = if (isSecondary) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.primary,
             contentColor = if (isSecondary) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onPrimary,
@@ -374,7 +371,7 @@ private fun StepPrice(price: String, onValueChange: (String) -> Unit, onNext: ()
         caption = {
             Text(
                 "مقدار را به تومان وارد کنید.",
-                style = MaterialTheme.typography.bodyLarge, // فونت بزرگتر
+                style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
@@ -406,10 +403,10 @@ private fun StepCigarettes(cpd: String, onValueChange: (String) -> Unit, onNext:
 @Composable
 private fun StepReason(reason: String, onValueChange: (String) -> Unit, onNext: () -> Unit) {
     OnboardingInputStep(
-        title = "چرا میخوایی ترک کنی؟",
+        title = "چرا میخوایی تغییر کنی؟",
         value = reason,
         onValueChange = onValueChange,
-        placeholder = "سلامت، پس انداز، خانواده...",
+        placeholder = "توی یک یا چند کلمه بگو تا یادت بمونه",
         onNext = onNext,
         maxLines = 3,
         isNextEnabled = true

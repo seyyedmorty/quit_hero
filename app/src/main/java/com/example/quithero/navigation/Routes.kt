@@ -7,4 +7,5 @@ object Routes {
     const val MOTIVATION = "motivation"
     const val BENEFITS = "benefits/{currentDay}"
     const val TEMPTATION = "temptation"
+    const val EDITPROFILE = "editProfile";
 }
