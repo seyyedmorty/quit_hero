@@ -192,7 +192,10 @@ fun HabitSummaryCard(cpd: Int, price: Float) {
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.weight(1f)
+            ) {
                 Text("مصرف روزانه", style = MaterialTheme.typography.labelMedium)
                 Text(
                     "$cpd نخ",
@@ -200,8 +203,17 @@ fun HabitSummaryCard(cpd: Int, price: Float) {
                     color = MaterialTheme.colorScheme.primary
                 )
             }
-            VerticalDivider(modifier = Modifier.height(40.dp), thickness = 4.dp)
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+
+            VerticalDivider(
+                modifier = Modifier
+                    .height(40.dp)
+                    .padding(horizontal = 8.dp), thickness = 4.dp
+            )
+
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.weight(1f)
+            ) {
                 Text("قیمت هر پاکت", style = MaterialTheme.typography.labelMedium)
                 Text(
                     "${price.toInt()} تومان",
